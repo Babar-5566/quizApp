@@ -1,0 +1,77 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    background: url(https://images.unsplash.com/photo-1435224668334-0f82ec57b605?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3RhciUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D) no-repeat;
+    /* background-size: 20%;\ */
+    background-size: max(2200px,100%);
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.glass {
+    color: white;
+    background: linear-gradient(135deg , rgba(255, 255, 255, 0.006) , rgba(128, 128, 128, 0.01));
+    backdrop-filter: blur(3.5px);
+    /* -webkit-backdrop-filter: blur(10px); */
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    /* box-shadow: 10px 8px 32px 0 rgba(128, 128, 128, 0.01); */
+    /* box-shadow: 10px 8px 32px rgba(0, 0, 0, 0.1); */
+}
+
+#choosePage h1{
+    margin-bottom: max(3vh , 10px);
+    text-align: center;
+}
+
+.container {
+    width: max-content;
+    height: max-content;
+    padding: max(3vw , 10px);
+}
+
+#choosePage{
+    
+}
+
+form {
+    
+}
+
+form select {
+    width: max(130px,30vw);
+}
+
+.moveAnimation {
+    animation: movingAnimation 1s linear forwards;
+}
+
+#loader{
+    
+}
+
+#quizQuestions {
+    
+}
+
+@keyframes movingAnimation {
+    0%{
+        left: 90%;
+        opacity: 0;
+    }
+    50%{
+        left: 50%;
+        opacity: 0.5;
+    }
+    100%{
+        left: 0%;
+        opacity: 1;
+    }
+}
