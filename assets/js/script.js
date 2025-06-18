@@ -21,7 +21,7 @@ function makeAPILink(category,difficulty,type) {
 //when the next button is clicked on the choosePage
 document.querySelector("form button").addEventListener("click", (e) => {
     e.preventDefault();
-    console.log(category,difficulty,type);
+    // console.log(category,difficulty,type);
     console.log(APILink);
     
     //resetting all values of select tags
@@ -30,11 +30,11 @@ document.querySelector("form button").addEventListener("click", (e) => {
     type.value = "any";
 
     //Removing choosePage
-    document.querySelector("#choosePage").style.opacity = 0;
+    document.querySelector("#choosePage").classList.add("hide");
 
     //showing loader
-    document.querySelector("#loader").style.opacity = 1;
-
+    document.querySelector("#loader").classList.add("show");
+    
     //show animation
     // document.querySelector("#quizQuestions").classList.add("moveAnimation");
 });

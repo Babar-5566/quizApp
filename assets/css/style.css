@@ -31,34 +31,64 @@ body{
     text-align: center;
 }
 
+
+#choosePage {
+    transition: 0.3s;
+    margin: max(3vw , 10px);
+}
+
 .container {
     width: max-content;
     height: max-content;
-    padding: max(3vw , 10px);
-}
-
-#choosePage{
-    
-}
-
-form {
-    
 }
 
 form select {
     width: max(130px,30vw);
+    height: max(20px,4vh);
+    border-radius: 10px;
+    margin: 5px 0 10px 0;
+}
+
+form button{
+    background-color: #0BDA51;
+    padding: max(1vh , 5px) max(3vw , 10px);
+    border-radius: 10px;
+    transition: 0.3s;
+    border: none;
+}
+
+form button:hover {
+    color: white;
+    background-color: #07ab3d;
 }
 
 .moveAnimation {
-    animation: movingAnimation 1s linear forwards;
+    animation: movingAnimation 0.5s linear forwards;
 }
 
 #loader{
-    
+    background-color: black;
+    width: 50px;
+    position: absolute;
+    top: 50%;
+    margin-left: 40%;
+    opacity: 0;
+    transition: 0.3s;
 }
 
 #quizQuestions {
-    
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    margin: max(3vw , 10px);
+}
+
+.show {
+    opacity: 1;
+}
+
+.hide {
+    opacity: 0;
 }
 
 @keyframes movingAnimation {
