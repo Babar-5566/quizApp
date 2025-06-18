@@ -10,10 +10,10 @@
 
 <body>
     <div class="glass container">
-        <div id="choosePage">
+        <div class="choosePage">
             <h1>Quiz App</h1>
             <form>
-                <label for="trivia_category">Select Category: </label><br/>
+                <label for="trivia_category">Select Category: </label><br />
                 <select name="trivia_category" class="form-control" id="trivia_category">
                     <option value="any">Any Category</option>
                     <option value="9">General Knowledge</option>
@@ -44,7 +44,7 @@
 
                 <br>
 
-                <label for="trivia_difficulty">Select Difficulty: </label><br/>
+                <label for="trivia_difficulty">Select Difficulty: </label><br />
                 <select name="trivia_difficulty" class="form-control" id="trivia_difficulty">
                     <option value="any">Any Difficulty</option>
                     <option value="easy">Easy</option>
@@ -54,7 +54,7 @@
 
                 <br>
 
-                <label for="trivia_type">Select Type: </label><br/>
+                <label for="trivia_type">Select Type: </label><br />
                 <select name="trivia_type" class="form-control" id="trivia_type">
                     <option value="any">Any Type</option>
                     <option value="multiple">Multiple Choice</option>
@@ -64,11 +64,29 @@
                 <button>Next</button>
             </form>
         </div>
-        <div id="loader">
+        <div class="loader">
             loading
         </div>
-        <div id="quizQuestions">
-            Questions
+        <div class="quizQuestions">
+            <div class="eachQuestion">
+                <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, pariatur?</h2>
+                <input type="radio" name="choice" value="0" id="choice0">
+                <label for="choice0">
+                    Lorem ipsum dolor sit amet.
+                </label><br>
+                <input type="radio" name="choice" value="1" id="choice1">
+                <label for="choice1">
+                    Lorem ipsum dolor sit amet.
+                </label><br>
+                <input type="radio" name="choice" value="2" id="choice2">
+                <label for="choice2">
+                    Lorem ipsum dolor sit amet.
+                </label><br>
+                <input type="radio" name="choice" value="3" id="choice3">
+                <label for="choice3">
+                    Lorem ipsum dolor sit amet.
+                </label><br>
+            </div>
         </div>
     </div>
 

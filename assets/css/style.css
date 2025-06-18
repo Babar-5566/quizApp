@@ -26,13 +26,13 @@ body{
     /* box-shadow: 10px 8px 32px rgba(0, 0, 0, 0.1); */
 }
 
-#choosePage h1{
+.choosePage h1{
     margin-bottom: max(3vh , 10px);
     text-align: center;
 }
 
 
-#choosePage {
+.choosePage {
     transition: 0.3s;
     margin: max(3vw , 10px);
 }
@@ -66,21 +66,29 @@ form button:hover {
     animation: movingAnimation 0.5s linear forwards;
 }
 
-#loader{
-    background-color: black;
-    width: 50px;
+.loader{
+    width: 100px;
     position: absolute;
     top: 50%;
-    margin-left: 40%;
+    margin-left: 42%;
     opacity: 0;
     transition: 0.3s;
 }
 
-#quizQuestions {
+.quizQuestions {
     position: absolute;
+    left: 90%;
     top: 0;
     opacity: 0;
     margin: max(3vw , 10px);
+}
+
+.quizQuestions h2 {
+    margin-bottom: max(3vh , 10px);
+}
+
+.quizQuestions label , .quizQuestions input {
+    margin: 5px 0 20px 0;
 }
 
 .show {
