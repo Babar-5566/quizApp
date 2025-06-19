@@ -31,7 +31,6 @@ body{
     text-align: center;
 }
 
-
 .choosePage {
     transition: 0.3s;
     margin: max(3vw , 10px);
@@ -55,6 +54,7 @@ form button{
     border-radius: 10px;
     transition: 0.3s;
     border: none;
+    text-align: center;
 }
 
 form button:hover {
@@ -81,6 +81,26 @@ form button:hover {
     top: 0;
     opacity: 0;
     margin: max(3vw , 10px);
+}
+
+.eachQuestion{
+    height: 12.5em;
+    overflow-y: auto;
+}
+
+.nextQuestion{
+    margin-top: 5px;
+    padding: max(1vh , 5px) max(3vw , 10px);
+    border-radius: 10px;
+    background-color: #00BFFF;
+    border: none;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.nextQuestion:hover {
+    color: white;
+    background-color: #1E90FF;
 }
 
 .quizQuestions h2 {
@@ -111,5 +131,41 @@ form button:hover {
     100%{
         left: 0%;
         opacity: 1;
+    }
+}
+
+@media screen and (min-height: 320px) {
+    .eachQuestion{
+        height: 13em;
+    }
+}
+@media screen and (min-height: 540px) {
+    .eachQuestion{
+        height: 14em;
+    }
+}
+@media screen and (min-height: 630px) {
+    .eachQuestion{
+        height: 15em;
+    }
+}
+@media screen and (min-height: 715px) {
+    .eachQuestion{
+        height: 16em;
+    }
+}
+@media screen and (min-height: 820px) {
+    .eachQuestion{
+        height: 17em;
+    }
+}
+@media screen and (min-height: 920px) {
+    .eachQuestion{
+        height: 18em;
+    }
+}
+@media screen and (min-height: 1000px) {
+    .eachQuestion{
+        height: 19em;
     }
 }
