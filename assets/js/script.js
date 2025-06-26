@@ -3,7 +3,9 @@ const difficulty = document.querySelector("#trivia_difficulty");
 const type = document.querySelector("#trivia_type");
 const choosePage = document.querySelector(".choosePage");
 let loader = document.querySelector(".loader");
-const quizQuestions = document.querySelector(".quizQuestions")
+const quizQuestions = document.querySelector(".quizQuestions");
+const nxtBtn = document.querySelector(".nextMessage button");
+const mssgBox = document.querySelector(".nextMessage .messageBox");
 
 //making the api link
 function makeAPILink(category, difficulty, type) {
@@ -37,44 +39,118 @@ document.querySelector("form button").addEventListener("click", (e) => {
 
     //showing loader and animating it
     loader.classList.add("show");
-    let dotCount = 0;
+    let count = 0;
     const si_id = setInterval(() => {
-        dotCount = (dotCount + 1) % 4; // cycles between 0 to 3
-        loader.innerText = "Loading" + ".".repeat(dotCount);
+        count = (count + 1) % 4; // cycles between 0 to 3
+        loader.innerText = "Loading" + ".".repeat(count);
     }, 500);
 
     startQuizProcessMCQ(APILink, si_id);
 });
 
-const questionsSet = [];
+let questionsSet = [];
 async function startQuizProcessMCQ(APILink, si_id) {
     const response = await fetch(APILink);
     const data = await response.json();
-    console.log(data.results);
-    (data.results).forEach(element => {
-        // choices = [];
-        // // correctAnsIndex = Math.floor(Math.random()*4);
-        // for (let index = 0; index < 4; index++) {
-        //     if (correctAnsIndex === index) {
-        //         choices.push(element.correct_answer);
-        //         continue;
-        //     }
-        //     choices.push(element.incorrect_answers[k++]);
-        // }
-        // console.log(choices);
-        questionsSet.push(
-            {
-                question: `${element.question}`,
-                incorrect_choices: `${element.incorrect_answers}`,
-                correct_choice: `${element.correct_answer}`,
-                type: `${element.type}`
-            }
-        )
-    });
+    questionsSet = data.results;
     console.log(questionsSet);
-
+    // (data.results).forEach(element => {
+    //     questionsSet.push(
+    //         {
+    //             question: `${element.question}`,
+    //             incorrect_choices: `${Array.from(element.incorrect_answers)}`,
+    //             correct_choice: `${element.correct_answer}`,
+    //         }
+    //     )
+    // });
+    // console.log(questionsSet);
+    
+    //making ten html elements for questions
+    for (let count = 0; count < questionsSet.length; count++) {
+        const element = makeQuestionElementMCQ(questionsSet[count],count);
+        quizQuestions.insertBefore(element, document.querySelector(".nextMessage"));
+    }
+    
+    const domQuestionSet = document.querySelectorAll(".eachQuestion");
+    
     //hiding loader and showing questions
     loader.classList.add("hide");
     clearInterval(si_id);
     quizQuestions.classList.add("moveAnimation");
+    
+    let count = 0;
+    domQuestionSet[count].classList.remove("displayHide");
+    
+    nxtBtn.addEventListener("click", () => {
+        const selectedOption = domQuestionSet[count].querySelector('input[type="radio"]:checked');
+        //check if any option selected or not
+        if(!selectedOption){
+            showMssgBox("Please Select a option","warning");
+            return;
+        } 
+        
+        domQuestionSet[count].classList.add("displayHide");
+        count++;
+        console.log(count,questionsSet.length);
+        if(count===domQuestionSet.length)   return;
+        domQuestionSet[count].classList.remove("displayHide");
+    })
+
+}
+
+function showMssgBox(errorMssg,type){
+    if(type==="warning") mssgBox.style.backgroundColor = "red";
+        mssgBox.children[0].innerHTML = errorMssg;
+    setTimeout(() => {
+        mssgBox.style.opacity = 0;
+    }, 2000);
+}
+
+// <div class="eachQuestion">
+//     <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, pariatur?</h2>
+//     <input type="radio" name="choice" value="0" id="choice0">
+//         <label for="choice0">
+//             Lorem ipsum dolor sit amet.
+//         </label><br>
+//             <input type="radio" name="choice" value="1" id="choice1">
+//                 <label for="choice1">
+//                     Lorem ipsum dolor sit amet.
+//                 </label><br>
+//                     <input type="radio" name="choice" value="2" id="choice2">
+//                         <label for="choice2">
+//                             Lorem ipsum dolor sit amet.
+//                         </label><br>
+//                             <input type="radio" name="choice" value="3" id="choice3">
+//                                 <label for="choice3">
+//                                     Lorem ipsum dolor sit amet.
+//                                 </label><br>
+//                                 </div>
+
+function makeQuestionElementMCQ(question,count) {
+    const element = document.createElement("div");
+    element.classList.add(`eachQuestion`);
+    element.classList.add(`question${count}`);
+    element.classList.add(`displayHide`);
+    const h2 = document.createElement("h2");
+    h2.innerHTML = question.question;
+    element.appendChild(h2);
+    const rndmIdx = Math.floor(Math.random()*4);
+    console.log(rndmIdx);
+    
+    let k = 0
+    for (let count = 0; count < 4; count++) {
+        const input = document.createElement("input");
+        input.setAttribute("type", "radio");
+        input.setAttribute("name", "choice");
+        input.setAttribute("value", `${count}`);
+        input.setAttribute("id", `choice${count}`);
+        const label = document.createElement("label");
+        label.setAttribute("for", `choice${count}`);
+        if(count === rndmIdx)   label.innerText = `${question.correct_answer}`;
+        else label.innerHTML = `${question.incorrect_answers[k++]}`;
+        element.appendChild(input);
+        element.appendChild(label);
+        element.appendChild(document.createElement("br"));
+    }
+    return element;
 }

@@ -86,6 +86,7 @@ form button:hover {
 .eachQuestion{
     height: 12.5em;
     overflow-y: auto;
+    transition: 0.3s
 }
 
 .nextQuestion{
@@ -108,7 +109,8 @@ form button:hover {
 }
 
 .quizQuestions label , .quizQuestions input {
-    margin: 5px 0 20px 0;
+    /* margin: 5px 0 20px 0; */
+    margin-top: 0.5rem;
 }
 
 .show {
@@ -117,6 +119,30 @@ form button:hover {
 
 .hide {
     opacity: 0;
+}
+
+.displayHide {
+    display: none;
+}
+
+.eachQuestion h2 {
+    font-size: 1rem;
+}
+
+.nextMessage{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.messageBox{
+    margin-top: 5px;
+    padding: max(1vh , 5px) max(3vw , 10px);
+    border-radius: 10px;
+    text-align: center;
+    flex: 1; 
+    overflow: auto;
 }
 
 @keyframes movingAnimation {
