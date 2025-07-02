@@ -6,6 +6,7 @@ let loader = document.querySelector(".loader");
 const quizQuestions = document.querySelector(".quizQuestions");
 const nxtBtn = document.querySelector(".nextMessage button");
 const mssgBox = document.querySelector(".nextMessage .messageBox");
+const scoreBoard = document.querySelector(".scoreBoard");
 
 //making the api link
 function makeAPILink(category, difficulty, type) {
@@ -36,7 +37,7 @@ document.querySelector("form button").addEventListener("click", (e) => {
 
     //Removing choosePage
     choosePage.classList.add("hide");
-
+    
     //showing loader and animating it
     loader.classList.add("show");
     let count = 0;
@@ -44,7 +45,12 @@ document.querySelector("form button").addEventListener("click", (e) => {
         count = (count + 1) % 4; // cycles between 0 to 3
         loader.innerText = "Loading" + ".".repeat(count);
     }, 500);
-
+    
+    //disabling all the selecct as they are only not visible but present (opacity=0)
+    const allSelects = choosePage.querySelectorAll("select");
+    allSelects.forEach(element => {
+        element.disabled = true;
+    });
     startQuizProcessMCQ(APILink, si_id);
 });
 
@@ -67,8 +73,13 @@ async function startQuizProcessMCQ(APILink, si_id) {
     
     //making ten html elements for questions
     for (let count = 0; count < questionsSet.length; count++) {
-        const element = makeQuestionElementMCQ(questionsSet[count],count);
-        quizQuestions.insertBefore(element, document.querySelector(".nextMessage"));
+        if (questionsSet[count].type === "multiple"){
+            const mcqElement = makeQuestionElementMCQ(questionsSet[count],count);
+            quizQuestions.insertBefore(mcqElement, document.querySelector(".nextMessage"));
+        } else {
+            const boolElement = makeQuestionElementBool(questionsSet[count],count);
+            quizQuestions.insertBefore(boolElement, document.querySelector(".nextMessage"));
+        }
     }
     
     const domQuestionSet = document.querySelectorAll(".eachQuestion");
@@ -85,26 +96,36 @@ async function startQuizProcessMCQ(APILink, si_id) {
         const selectedOption = domQuestionSet[count].querySelector('input[type="radio"]:checked');
         //check if any option selected or not
         if(!selectedOption){
-            showMssgBox("Please Select a option","warning");
+            // showMssgBox("Please Select a option","warning");
+            alert("Please Select a option");
             return;
         } 
         
         domQuestionSet[count].classList.add("displayHide");
         count++;
         console.log(count,questionsSet.length);
-        if(count===domQuestionSet.length)   return;
+        if(count===domQuestionSet.length){
+            nxtBtn.classList.add("displayHide");
+            scoreBoard.classList.add("moveAnimation");
+            showScoreBoard();
+            return;
+        }   
         domQuestionSet[count].classList.remove("displayHide");
     })
 
 }
 
-function showMssgBox(errorMssg,type){
-    if(type==="warning") mssgBox.style.backgroundColor = "red";
-        mssgBox.children[0].innerHTML = errorMssg;
-    setTimeout(() => {
-        mssgBox.style.opacity = 0;
-    }, 2000);
+function showScoreBoard() {
+    
 }
+
+// function showMssgBox(errorMssg,type){
+//     if(type==="warning") mssgBox.style.backgroundColor = "red";
+//         mssgBox.children[0].innerHTML = errorMssg;
+//     setTimeout(() => {
+//         mssgBox.style.opacity = 0;
+//     }, 2000);
+// }
 
 // <div class="eachQuestion">
 //     <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, pariatur?</h2>
@@ -139,6 +160,33 @@ function makeQuestionElementMCQ(question,count) {
     
     let k = 0
     for (let count = 0; count < 4; count++) {
+        const input = document.createElement("input");
+        input.setAttribute("type", "radio");
+        input.setAttribute("name", "choice");
+        input.setAttribute("value", `${count}`);
+        input.setAttribute("id", `choice${count}`);
+        const label = document.createElement("label");
+        label.setAttribute("for", `choice${count}`);
+        if(count === rndmIdx)   label.innerText = `${question.correct_answer}`;
+        else label.innerHTML = `${question.incorrect_answers[k++]}`;
+        element.appendChild(input);
+        element.appendChild(label);
+        element.appendChild(document.createElement("br"));
+    }
+    return element;
+}
+function makeQuestionElementBool(question,count) {
+    const element = document.createElement("div");
+    element.classList.add(`eachQuestion`);
+    element.classList.add(`question${count}`);
+    element.classList.add(`displayHide`);
+    const h2 = document.createElement("h2");
+    h2.innerHTML = question.question;
+    element.appendChild(h2);
+    const rndmIdx = Math.floor(Math.random()*2);
+    
+    let k = 0;
+    for (let count = 0; count < 2; count++) {
         const input = document.createElement("input");
         input.setAttribute("type", "radio");
         input.setAttribute("name", "choice");

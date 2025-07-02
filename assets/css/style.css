@@ -75,7 +75,7 @@ form button:hover {
     transition: 0.3s;
 }
 
-.quizQuestions {
+.quizQuestions, .scoreBoard {
     position: absolute;
     left: 90%;
     top: 0;
@@ -136,14 +136,14 @@ form button:hover {
     gap: 0.5rem;
 }
 
-.messageBox{
+/* .messageBox{
     margin-top: 5px;
     padding: max(1vh , 5px) max(3vw , 10px);
     border-radius: 10px;
     text-align: center;
     flex: 1; 
     overflow: auto;
-}
+} */
 
 @keyframes movingAnimation {
     0%{
