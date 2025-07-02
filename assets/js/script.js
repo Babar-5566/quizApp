@@ -89,7 +89,7 @@ async function startQuizProcessMCQ(APILink, si_id) {
     clearInterval(si_id);
     quizQuestions.classList.add("moveAnimation");
     
-    let count = 0;
+    let count = 0 , score = 0;
     domQuestionSet[count].classList.remove("displayHide");
     
     nxtBtn.addEventListener("click", () => {
@@ -97,26 +97,52 @@ async function startQuizProcessMCQ(APILink, si_id) {
         //check if any option selected or not
         if(!selectedOption){
             // showMssgBox("Please Select a option","warning");
-            alert("Please Select a option");
+            // alert("Please Select a option");
             return;
-        } 
+        }
+
+        if (questionsSet[count].correct_answer === selectedOption.value) {
+            console.log("Correct");
+            score++;
+        } else console.log("incorrect");
+        
+
+        console.log(selectedOption);
+        console.log(questionsSet[count].correct_answer);
+        
+        
         
         domQuestionSet[count].classList.add("displayHide");
-        count++;
-        console.log(count,questionsSet.length);
+        count++;        
         if(count===domQuestionSet.length){
             nxtBtn.classList.add("displayHide");
-            scoreBoard.classList.add("moveAnimation");
-            showScoreBoard();
+            showScoreBoard(score);
             return;
         }   
         domQuestionSet[count].classList.remove("displayHide");
     })
-
+    
 }
 
-function showScoreBoard() {
-    
+function showScoreBoard(score) {
+    document.querySelector(".displayScore").innerHTML = `${score}`;
+
+    document.querySelector(".scoreWrapper").style.display = "flex";
+
+    const scoreMessage = document.querySelector(".scoreMessage");
+    if (score>8)    
+        scoreMessage.innerHTML = "Extraordinary performance!";
+    else {
+        if (score>6) {
+            scoreMessage.innerHTML = "Excellent, you did very well";
+        } else {
+            if (score>4) 
+                scoreMessage.innerHTML = "You did well";
+            else    
+                scoreMessage.innerHTML = "You can try again !";    
+        }
+    }
+    scoreMessage.innerHTML += "<br/>(Reload the page for trying again)"
 }
 
 // function showMssgBox(errorMssg,type){
@@ -156,19 +182,23 @@ function makeQuestionElementMCQ(question,count) {
     h2.innerHTML = question.question;
     element.appendChild(h2);
     const rndmIdx = Math.floor(Math.random()*4);
-    console.log(rndmIdx);
     
     let k = 0
     for (let count = 0; count < 4; count++) {
         const input = document.createElement("input");
         input.setAttribute("type", "radio");
         input.setAttribute("name", "choice");
-        input.setAttribute("value", `${count}`);
         input.setAttribute("id", `choice${count}`);
         const label = document.createElement("label");
         label.setAttribute("for", `choice${count}`);
-        if(count === rndmIdx)   label.innerText = `${question.correct_answer}`;
-        else label.innerHTML = `${question.incorrect_answers[k++]}`;
+        if(count === rndmIdx) {
+            label.innerText = `${question.correct_answer}`;
+            input.setAttribute("value", `${question.correct_answer}`);
+        }  
+        else{
+            label.innerHTML = `${question.incorrect_answers[k]}`;
+            input.setAttribute("value", `${question.incorrect_answers[k++]}`);
+        } 
         element.appendChild(input);
         element.appendChild(label);
         element.appendChild(document.createElement("br"));
@@ -190,12 +220,17 @@ function makeQuestionElementBool(question,count) {
         const input = document.createElement("input");
         input.setAttribute("type", "radio");
         input.setAttribute("name", "choice");
-        input.setAttribute("value", `${count}`);
         input.setAttribute("id", `choice${count}`);
         const label = document.createElement("label");
         label.setAttribute("for", `choice${count}`);
-        if(count === rndmIdx)   label.innerText = `${question.correct_answer}`;
-        else label.innerHTML = `${question.incorrect_answers[k++]}`;
+        if(count === rndmIdx) {
+            label.innerText = `${question.correct_answer}`;
+            input.setAttribute("value", `${question.correct_answer}`);
+        }  
+        else{
+            label.innerHTML = `${question.incorrect_answers[k]}`;
+            input.setAttribute("value", `${question.incorrect_answers[k++]}`);
+        } 
         element.appendChild(input);
         element.appendChild(label);
         element.appendChild(document.createElement("br"));

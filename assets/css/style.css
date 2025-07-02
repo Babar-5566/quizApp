@@ -136,6 +136,56 @@ form button:hover {
     gap: 0.5rem;
 }
 
+.glass.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .scoreBoard, .scoreMessage {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1; /* Change to 1 temporarily to test */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Optional */
+    height: 100%; /* Optional */
+  }
+
+  .scoreMessage {
+    top: 70%;
+    font-size: larger;
+    font-weight: bolder;
+    text-align: center;
+  }
+  
+  .circle {
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    text-align: center;
+    margin-left: -5vw;
+  }
+
+  .scoreWrapper{
+    display: none;
+    flex-direction: column;
+    gap: 1vh;
+  }
+  
+
 /* .messageBox{
     margin-top: 5px;
     padding: max(1vh , 5px) max(3vw , 10px);
